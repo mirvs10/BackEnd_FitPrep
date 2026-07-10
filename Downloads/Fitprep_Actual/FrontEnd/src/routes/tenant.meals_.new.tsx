@@ -5,7 +5,7 @@ import { platosService } from "../lib/api";
 import { MockupShell, PageHeader, Card, Btn } from "@/components/mockup/Shell";
 import { Upload, ArrowLeft } from "lucide-react";
 
-export const Route = createFileRoute("/tenant/meals/new")({
+export const Route = createFileRoute("/tenant/meals_/new")({
   head: () => ({ meta: [{ title: "Nueva comida — FitKitchen" }] }),
   component: NewMeal,
 });

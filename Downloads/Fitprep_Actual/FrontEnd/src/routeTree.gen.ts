@@ -45,9 +45,9 @@ import { Route as AdminReportsRouteImport } from './routes/admin.reports'
 import { Route as AdminBusinessesRouteImport } from './routes/admin.businesses'
 import { Route as TenantsSlugIndexRouteImport } from './routes/tenants.$slug.index'
 import { Route as TenantsSlugCatalogRouteImport } from './routes/tenants.$slug.catalog'
-import { Route as TenantMealsNewRouteImport } from './routes/tenant.meals.new'
+import { Route as TenantMealsNewRouteImport } from './routes/tenant.meals_.new'
 import { Route as AthleteMealIdRouteImport } from './routes/athlete.meal.$id'
-import { Route as TenantMealsIdEditRouteImport } from './routes/tenant.meals.$id.edit'
+import { Route as TenantMealsIdEditRouteImport } from './routes/tenant.meals_.$id.edit'
 
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
@@ -230,9 +230,9 @@ const TenantsSlugCatalogRoute = TenantsSlugCatalogRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const TenantMealsNewRoute = TenantMealsNewRouteImport.update({
-  id: '/new',
-  path: '/new',
-  getParentRoute: () => TenantMealsRoute,
+  id: '/tenant/meals_/new',
+  path: '/tenant/meals/new',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AthleteMealIdRoute = AthleteMealIdRouteImport.update({
   id: '/athlete/meal/$id',
@@ -240,9 +240,9 @@ const AthleteMealIdRoute = AthleteMealIdRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const TenantMealsIdEditRoute = TenantMealsIdEditRouteImport.update({
-  id: '/$id/edit',
-  path: '/$id/edit',
-  getParentRoute: () => TenantMealsRoute,
+  id: '/tenant/meals_/$id/edit',
+  path: '/tenant/meals/$id/edit',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -269,7 +269,7 @@ export interface FileRoutesByFullPath {
   '/tenant/delivery': typeof TenantDeliveryRoute
   '/tenant/ingredients': typeof TenantIngredientsRoute
   '/tenant/kitchen': typeof TenantKitchenRoute
-  '/tenant/meals': typeof TenantMealsRouteWithChildren
+  '/tenant/meals': typeof TenantMealsRoute
   '/tenant/orders': typeof TenantOrdersRoute
   '/tenant/production': typeof TenantProductionRoute
   '/tenant/reports': typeof TenantReportsRoute
@@ -310,7 +310,7 @@ export interface FileRoutesByTo {
   '/tenant/delivery': typeof TenantDeliveryRoute
   '/tenant/ingredients': typeof TenantIngredientsRoute
   '/tenant/kitchen': typeof TenantKitchenRoute
-  '/tenant/meals': typeof TenantMealsRouteWithChildren
+  '/tenant/meals': typeof TenantMealsRoute
   '/tenant/orders': typeof TenantOrdersRoute
   '/tenant/production': typeof TenantProductionRoute
   '/tenant/reports': typeof TenantReportsRoute
@@ -352,7 +352,7 @@ export interface FileRoutesById {
   '/tenant/delivery': typeof TenantDeliveryRoute
   '/tenant/ingredients': typeof TenantIngredientsRoute
   '/tenant/kitchen': typeof TenantKitchenRoute
-  '/tenant/meals': typeof TenantMealsRouteWithChildren
+  '/tenant/meals': typeof TenantMealsRoute
   '/tenant/orders': typeof TenantOrdersRoute
   '/tenant/production': typeof TenantProductionRoute
   '/tenant/reports': typeof TenantReportsRoute
@@ -364,10 +364,10 @@ export interface FileRoutesById {
   '/tenant/': typeof TenantIndexRoute
   '/tenants/': typeof TenantsIndexRoute
   '/athlete/meal/$id': typeof AthleteMealIdRoute
-  '/tenant/meals/new': typeof TenantMealsNewRoute
+  '/tenant/meals_/new': typeof TenantMealsNewRoute
   '/tenants/$slug/catalog': typeof TenantsSlugCatalogRoute
   '/tenants/$slug/': typeof TenantsSlugIndexRoute
-  '/tenant/meals/$id/edit': typeof TenantMealsIdEditRoute
+  '/tenant/meals_/$id/edit': typeof TenantMealsIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -489,10 +489,10 @@ export interface FileRouteTypes {
     | '/tenant/'
     | '/tenants/'
     | '/athlete/meal/$id'
-    | '/tenant/meals/new'
+    | '/tenant/meals_/new'
     | '/tenants/$slug/catalog'
     | '/tenants/$slug/'
-    | '/tenant/meals/$id/edit'
+    | '/tenant/meals_/$id/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -519,7 +519,7 @@ export interface RootRouteChildren {
   TenantDeliveryRoute: typeof TenantDeliveryRoute
   TenantIngredientsRoute: typeof TenantIngredientsRoute
   TenantKitchenRoute: typeof TenantKitchenRoute
-  TenantMealsRoute: typeof TenantMealsRouteWithChildren
+  TenantMealsRoute: typeof TenantMealsRoute
   TenantOrdersRoute: typeof TenantOrdersRoute
   TenantProductionRoute: typeof TenantProductionRoute
   TenantReportsRoute: typeof TenantReportsRoute
@@ -531,8 +531,10 @@ export interface RootRouteChildren {
   TenantIndexRoute: typeof TenantIndexRoute
   TenantsIndexRoute: typeof TenantsIndexRoute
   AthleteMealIdRoute: typeof AthleteMealIdRoute
+  TenantMealsNewRoute: typeof TenantMealsNewRoute
   TenantsSlugCatalogRoute: typeof TenantsSlugCatalogRoute
   TenantsSlugIndexRoute: typeof TenantsSlugIndexRoute
+  TenantMealsIdEditRoute: typeof TenantMealsIdEditRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -789,12 +791,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TenantsSlugCatalogRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tenant/meals/new': {
-      id: '/tenant/meals/new'
-      path: '/new'
+    '/tenant/meals_/new': {
+      id: '/tenant/meals_/new'
+      path: '/tenant/meals/new'
       fullPath: '/tenant/meals/new'
       preLoaderRoute: typeof TenantMealsNewRouteImport
-      parentRoute: typeof TenantMealsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/athlete/meal/$id': {
       id: '/athlete/meal/$id'
@@ -803,29 +805,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AthleteMealIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tenant/meals/$id/edit': {
-      id: '/tenant/meals/$id/edit'
-      path: '/$id/edit'
+    '/tenant/meals_/$id/edit': {
+      id: '/tenant/meals_/$id/edit'
+      path: '/tenant/meals/$id/edit'
       fullPath: '/tenant/meals/$id/edit'
       preLoaderRoute: typeof TenantMealsIdEditRouteImport
-      parentRoute: typeof TenantMealsRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface TenantMealsRouteChildren {
-  TenantMealsNewRoute: typeof TenantMealsNewRoute
-  TenantMealsIdEditRoute: typeof TenantMealsIdEditRoute
-}
-
-const TenantMealsRouteChildren: TenantMealsRouteChildren = {
-  TenantMealsNewRoute: TenantMealsNewRoute,
-  TenantMealsIdEditRoute: TenantMealsIdEditRoute,
-}
-
-const TenantMealsRouteWithChildren = TenantMealsRoute._addFileChildren(
-  TenantMealsRouteChildren,
-)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -851,7 +839,7 @@ const rootRouteChildren: RootRouteChildren = {
   TenantDeliveryRoute: TenantDeliveryRoute,
   TenantIngredientsRoute: TenantIngredientsRoute,
   TenantKitchenRoute: TenantKitchenRoute,
-  TenantMealsRoute: TenantMealsRouteWithChildren,
+  TenantMealsRoute: TenantMealsRoute,
   TenantOrdersRoute: TenantOrdersRoute,
   TenantProductionRoute: TenantProductionRoute,
   TenantReportsRoute: TenantReportsRoute,
@@ -863,8 +851,10 @@ const rootRouteChildren: RootRouteChildren = {
   TenantIndexRoute: TenantIndexRoute,
   TenantsIndexRoute: TenantsIndexRoute,
   AthleteMealIdRoute: AthleteMealIdRoute,
+  TenantMealsNewRoute: TenantMealsNewRoute,
   TenantsSlugCatalogRoute: TenantsSlugCatalogRoute,
   TenantsSlugIndexRoute: TenantsSlugIndexRoute,
+  TenantMealsIdEditRoute: TenantMealsIdEditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
