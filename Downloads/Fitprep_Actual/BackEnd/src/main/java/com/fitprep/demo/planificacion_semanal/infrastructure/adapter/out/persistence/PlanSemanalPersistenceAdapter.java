@@ -44,8 +44,8 @@ public class PlanSemanalPersistenceAdapter implements PlanSemanalRepositoryPort 
     }
 
     @Override
-    public List<PlanSemanal> findByFechaInicioSemanaAndEstadoPagoIn(LocalDate fecha, List<String> estadosPago) {
-        return jpaRepository.findByFechaInicioSemanaAndEstadoPagoIn(fecha, estadosPago).stream()
+    public List<PlanSemanal> findByFechaInicioSemanaAndEstadoPagoInAndNegocioId(LocalDate fecha, List<String> estadosPago, Integer negocioId) {
+        return jpaRepository.findByFechaInicioSemanaAndEstadoPagoInAndNegocioId(fecha, estadosPago, negocioId).stream()
                 .map(PlanSemanalMapper::toDomain)
                 .collect(Collectors.toList());
     }

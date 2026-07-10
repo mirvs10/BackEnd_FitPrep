@@ -31,9 +31,9 @@ public class LogisticaService implements ConsultarProduccionUseCase {
     }
 
     @Override
-    public List<ReporteProduccionItem> obtenerConsolidadoProduccion(LocalDate fechaSemana) {
+    public List<ReporteProduccionItem> obtenerConsolidadoProduccion(LocalDate fechaSemana, Integer negocioId) {
         List<PlanSemanal> planes = planSemanalRepository
-                .findByFechaInicioSemanaAndEstadoPagoIn(fechaSemana, ESTADOS_PRODUCIBLES);
+                .findByFechaInicioSemanaAndEstadoPagoInAndNegocioId(fechaSemana, ESTADOS_PRODUCIBLES, negocioId);
 
         Map<String, ReporteProduccionItem> consolidado = new HashMap<>();
 

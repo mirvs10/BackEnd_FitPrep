@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface ConsultarProduccionUseCase {
 
-    List<ReporteProduccionItem> obtenerConsolidadoProduccion(LocalDate fechaSemana);
+    List<ReporteProduccionItem> obtenerConsolidadoProduccion(LocalDate fechaSemana, Integer negocioId);
 }

@@ -21,10 +21,8 @@ import { Route as TenantStatsRouteImport } from './routes/tenant.stats'
 import { Route as TenantShoppingRouteImport } from './routes/tenant.shopping'
 import { Route as TenantSettingsRouteImport } from './routes/tenant.settings'
 import { Route as TenantReportsRouteImport } from './routes/tenant.reports'
-import { Route as TenantProductionRouteImport } from './routes/tenant.production'
 import { Route as TenantOrdersRouteImport } from './routes/tenant.orders'
 import { Route as TenantMealsRouteImport } from './routes/tenant.meals'
-import { Route as TenantKitchenRouteImport } from './routes/tenant.kitchen'
 import { Route as TenantIngredientsRouteImport } from './routes/tenant.ingredients'
 import { Route as TenantDeliveryRouteImport } from './routes/tenant.delivery'
 import { Route as TenantClientsRouteImport } from './routes/tenant.clients'
@@ -109,11 +107,6 @@ const TenantReportsRoute = TenantReportsRouteImport.update({
   path: '/tenant/reports',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TenantProductionRoute = TenantProductionRouteImport.update({
-  id: '/tenant/production',
-  path: '/tenant/production',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TenantOrdersRoute = TenantOrdersRouteImport.update({
   id: '/tenant/orders',
   path: '/tenant/orders',
@@ -122,11 +115,6 @@ const TenantOrdersRoute = TenantOrdersRouteImport.update({
 const TenantMealsRoute = TenantMealsRouteImport.update({
   id: '/tenant/meals',
   path: '/tenant/meals',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TenantKitchenRoute = TenantKitchenRouteImport.update({
-  id: '/tenant/kitchen',
-  path: '/tenant/kitchen',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TenantIngredientsRoute = TenantIngredientsRouteImport.update({
@@ -268,10 +256,8 @@ export interface FileRoutesByFullPath {
   '/tenant/clients': typeof TenantClientsRoute
   '/tenant/delivery': typeof TenantDeliveryRoute
   '/tenant/ingredients': typeof TenantIngredientsRoute
-  '/tenant/kitchen': typeof TenantKitchenRoute
   '/tenant/meals': typeof TenantMealsRoute
   '/tenant/orders': typeof TenantOrdersRoute
-  '/tenant/production': typeof TenantProductionRoute
   '/tenant/reports': typeof TenantReportsRoute
   '/tenant/settings': typeof TenantSettingsRoute
   '/tenant/shopping': typeof TenantShoppingRoute
@@ -309,10 +295,8 @@ export interface FileRoutesByTo {
   '/tenant/clients': typeof TenantClientsRoute
   '/tenant/delivery': typeof TenantDeliveryRoute
   '/tenant/ingredients': typeof TenantIngredientsRoute
-  '/tenant/kitchen': typeof TenantKitchenRoute
   '/tenant/meals': typeof TenantMealsRoute
   '/tenant/orders': typeof TenantOrdersRoute
-  '/tenant/production': typeof TenantProductionRoute
   '/tenant/reports': typeof TenantReportsRoute
   '/tenant/settings': typeof TenantSettingsRoute
   '/tenant/shopping': typeof TenantShoppingRoute
@@ -351,10 +335,8 @@ export interface FileRoutesById {
   '/tenant/clients': typeof TenantClientsRoute
   '/tenant/delivery': typeof TenantDeliveryRoute
   '/tenant/ingredients': typeof TenantIngredientsRoute
-  '/tenant/kitchen': typeof TenantKitchenRoute
   '/tenant/meals': typeof TenantMealsRoute
   '/tenant/orders': typeof TenantOrdersRoute
-  '/tenant/production': typeof TenantProductionRoute
   '/tenant/reports': typeof TenantReportsRoute
   '/tenant/settings': typeof TenantSettingsRoute
   '/tenant/shopping': typeof TenantShoppingRoute
@@ -394,10 +376,8 @@ export interface FileRouteTypes {
     | '/tenant/clients'
     | '/tenant/delivery'
     | '/tenant/ingredients'
-    | '/tenant/kitchen'
     | '/tenant/meals'
     | '/tenant/orders'
-    | '/tenant/production'
     | '/tenant/reports'
     | '/tenant/settings'
     | '/tenant/shopping'
@@ -435,10 +415,8 @@ export interface FileRouteTypes {
     | '/tenant/clients'
     | '/tenant/delivery'
     | '/tenant/ingredients'
-    | '/tenant/kitchen'
     | '/tenant/meals'
     | '/tenant/orders'
-    | '/tenant/production'
     | '/tenant/reports'
     | '/tenant/settings'
     | '/tenant/shopping'
@@ -476,10 +454,8 @@ export interface FileRouteTypes {
     | '/tenant/clients'
     | '/tenant/delivery'
     | '/tenant/ingredients'
-    | '/tenant/kitchen'
     | '/tenant/meals'
     | '/tenant/orders'
-    | '/tenant/production'
     | '/tenant/reports'
     | '/tenant/settings'
     | '/tenant/shopping'
@@ -518,10 +494,8 @@ export interface RootRouteChildren {
   TenantClientsRoute: typeof TenantClientsRoute
   TenantDeliveryRoute: typeof TenantDeliveryRoute
   TenantIngredientsRoute: typeof TenantIngredientsRoute
-  TenantKitchenRoute: typeof TenantKitchenRoute
   TenantMealsRoute: typeof TenantMealsRoute
   TenantOrdersRoute: typeof TenantOrdersRoute
-  TenantProductionRoute: typeof TenantProductionRoute
   TenantReportsRoute: typeof TenantReportsRoute
   TenantSettingsRoute: typeof TenantSettingsRoute
   TenantShoppingRoute: typeof TenantShoppingRoute
@@ -623,13 +597,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TenantReportsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tenant/production': {
-      id: '/tenant/production'
-      path: '/tenant/production'
-      fullPath: '/tenant/production'
-      preLoaderRoute: typeof TenantProductionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/tenant/orders': {
       id: '/tenant/orders'
       path: '/tenant/orders'
@@ -642,13 +609,6 @@ declare module '@tanstack/react-router' {
       path: '/tenant/meals'
       fullPath: '/tenant/meals'
       preLoaderRoute: typeof TenantMealsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/tenant/kitchen': {
-      id: '/tenant/kitchen'
-      path: '/tenant/kitchen'
-      fullPath: '/tenant/kitchen'
-      preLoaderRoute: typeof TenantKitchenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tenant/ingredients': {
@@ -838,10 +798,8 @@ const rootRouteChildren: RootRouteChildren = {
   TenantClientsRoute: TenantClientsRoute,
   TenantDeliveryRoute: TenantDeliveryRoute,
   TenantIngredientsRoute: TenantIngredientsRoute,
-  TenantKitchenRoute: TenantKitchenRoute,
   TenantMealsRoute: TenantMealsRoute,
   TenantOrdersRoute: TenantOrdersRoute,
-  TenantProductionRoute: TenantProductionRoute,
   TenantReportsRoute: TenantReportsRoute,
   TenantSettingsRoute: TenantSettingsRoute,
   TenantShoppingRoute: TenantShoppingRoute,

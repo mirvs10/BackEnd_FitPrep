@@ -64,8 +64,6 @@ const tenantGroups: Group[] = [
     items: [
       { to: "/tenant", label: "Dashboard", icon: LayoutDashboard },
       { to: "/tenant/orders", label: "Pedidos semanales", icon: ListOrdered },
-      { to: "/tenant/production", label: "Producción diaria", icon: Factory },
-      { to: "/tenant/kitchen", label: "Planeamiento cocina", icon: ClipboardList },
       { to: "/tenant/delivery", label: "Entregas", icon: Truck },
       { to: "/tenant/calendar", label: "Calendario", icon: Calendar },
     ],

@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 interface PlanSemanalJpaRepository extends JpaRepository<PlanSemanalEntity, Long> {
-    List<PlanSemanalEntity> findByFechaInicioSemanaAndEstadoPagoIn(LocalDate fecha, List<String> estadosPago);
+    List<PlanSemanalEntity> findByFechaInicioSemanaAndEstadoPagoInAndNegocioId(LocalDate fecha, List<String> estadosPago, Integer negocioId);
 
     List<PlanSemanalEntity> findByUsuarioIdOrderByIdDesc(Long usuarioId);
 

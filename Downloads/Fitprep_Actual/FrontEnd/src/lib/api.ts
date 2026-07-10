@@ -273,10 +273,16 @@ export const pedidosService = {
   },
 };
 
-// Servicios de Tenant Dashboard
+// Servicios de Tenant Dashboard & Logística
 export const tenantService = {
   obtenerDashboard: async () => {
     const response = await api.get("/api/v1/pedidos/dashboard");
     return response.data;
   },
+  obtenerProduccion: async (fechaSemana: string) => {
+    const response = await api.get("/api/v1/logistica/produccion", {
+      params: { fechaSemana }
+    });
+    return response.data;
+  }
 };
