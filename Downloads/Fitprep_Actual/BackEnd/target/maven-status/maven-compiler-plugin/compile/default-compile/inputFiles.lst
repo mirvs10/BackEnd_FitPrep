@@ -76,6 +76,8 @@ C:\Users\maic\Downloads\Fitprep_Actual\BackEnd\src\main\java\com\fitprep\demo\pe
 C:\Users\maic\Downloads\Fitprep_Actual\BackEnd\src\main\java\com\fitprep\demo\pedidos_ecommerce\infrastructure\adapter\in\web\CheckoutController.java
 C:\Users\maic\Downloads\Fitprep_Actual\BackEnd\src\main\java\com\fitprep\demo\pedidos_ecommerce\infrastructure\adapter\in\web\dto\CheckoutRequest.java
 C:\Users\maic\Downloads\Fitprep_Actual\BackEnd\src\main\java\com\fitprep\demo\pedidos_ecommerce\infrastructure\adapter\in\web\dto\PedidoResponse.java
+C:\Users\maic\Downloads\Fitprep_Actual\BackEnd\src\main\java\com\fitprep\demo\pedidos_ecommerce\infrastructure\adapter\in\web\dto\TenantDashboardResponse.java
+C:\Users\maic\Downloads\Fitprep_Actual\BackEnd\src\main\java\com\fitprep\demo\pedidos_ecommerce\infrastructure\adapter\in\web\TenantDashboardController.java
 C:\Users\maic\Downloads\Fitprep_Actual\BackEnd\src\main\java\com\fitprep\demo\pedidos_ecommerce\infrastructure\adapter\out\persistence\LineaPedidoEntity.java
 C:\Users\maic\Downloads\Fitprep_Actual\BackEnd\src\main\java\com\fitprep\demo\pedidos_ecommerce\infrastructure\adapter\out\persistence\PedidoEcommerceEntity.java
 C:\Users\maic\Downloads\Fitprep_Actual\BackEnd\src\main\java\com\fitprep\demo\pedidos_ecommerce\infrastructure\adapter\out\persistence\PedidoEcommerceJpaRepository.java

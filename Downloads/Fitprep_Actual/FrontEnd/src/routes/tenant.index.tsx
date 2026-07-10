@@ -1,6 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { MockupShell, PageHeader, Card, KpiCard, Btn, Badge } from "@/components/mockup/Shell";
-import { Download, TrendingUp } from "lucide-react";
+import { Download, TrendingUp, Plus } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { tenantService } from "@/lib/api";
 
 export const Route = createFileRoute("/tenant/")({
   head: () => ({ meta: [{ title: "Panel · FitKitchen — NutriFlow" }] }),
@@ -8,16 +10,21 @@ export const Route = createFileRoute("/tenant/")({
 });
 
 function TenantDashboard() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["tenantDashboard"],
+    queryFn: tenantService.obtenerDashboard,
+  });
+
   return (
     <MockupShell breadcrumbs={["FitKitchen Madrid", "Dashboard"]}>
       <div className="p-8">
-        <PageHeader eyebrow="FitKitchen Madrid · Hoy 12 May" title="Panel de control" description="Resumen ejecutivo de tu cocina, pedidos y operación semanal." actions={<><Btn variant="outline"><Download className="size-3.5" /> Reporte</Btn><Btn>Crear comida</Btn></>} />
+        <PageHeader eyebrow="FitKitchen Madrid" title="Panel de control" description="Resumen ejecutivo de tu cocina, pedidos y operación semanal." actions={<><Btn variant="outline"><Download className="size-3.5" /> Reporte</Btn><Link to="/tenant/meals/new"><Btn><Plus className="size-3.5" /> Crear comida</Btn></Link></>} />
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
-          <KpiCard label="Ventas semanales" value="$12,480" delta="↑ 12%" hint="vs semana pasada" />
-          <KpiCard label="Pedidos activos" value="342" delta="↑ 28 hoy" />
-          <KpiCard label="Capacidad cocina" value="88%" hint="540 / 612 porciones" />
-          <KpiCard label="Retención" value="94.2%" delta="↑ 1.4pts" />
+          <KpiCard label="Ventas totales" value={`$${data?.ventasSemanales?.toFixed(2) || '0.00'}`} delta="calculado al día" />
+          <KpiCard label="Pedidos activos" value={data?.pedidosActivos?.toString() || '0'} delta="en cola" />
+          <KpiCard label="Capacidad cocina" value="--" hint="Próximamente" />
+          <KpiCard label="Retención" value="--" hint="Próximamente" />
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
@@ -45,12 +52,18 @@ function TenantDashboard() {
           <Card className="p-6">
             <h3 className="text-sm font-semibold mb-5">Platos más vendidos</h3>
             <ul className="space-y-3.5">
-              {[["Pollo Keto","142","82%"],["Bowl Salmón Miso","98","56%"],["Wrap Tofu","76","43%"],["Pasta Pesto","54","31%"]].map(([n,v,p]) => (
-                <li key={n}>
-                  <div className="flex justify-between text-xs mb-1.5"><span className="font-medium">{n}</span><span className="tabular-nums text-muted-foreground">{v}</span></div>
-                  <div className="h-1.5 bg-muted rounded-full"><div className="h-full bg-brand-500 rounded-full" style={{width:p}} /></div>
-                </li>
-              ))}
+              {isLoading ? (
+                <div className="text-xs text-muted-foreground">Cargando...</div>
+              ) : data?.platosMasVendidos?.length === 0 ? (
+                <div className="text-xs text-muted-foreground">No hay datos de ventas aún.</div>
+              ) : (
+                data?.platosMasVendidos?.map((p: any) => (
+                  <li key={p.nombre}>
+                    <div className="flex justify-between text-xs mb-1.5"><span className="font-medium">{p.nombre}</span><span className="tabular-nums text-muted-foreground">{p.unidades}</span></div>
+                    <div className="h-1.5 bg-muted rounded-full"><div className="h-full bg-brand-500 rounded-full" style={{width: p.porcentaje}} /></div>
+                  </li>
+                ))
+              )}
             </ul>
           </Card>
 
@@ -61,17 +74,23 @@ function TenantDashboard() {
             </div>
             <table className="w-full text-sm">
               <thead className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                <tr><th className="text-left pb-3">Cliente</th><th className="text-left pb-3">Plan</th><th className="text-left pb-3">Estado</th><th className="text-right pb-3">Total</th></tr>
+                <tr><th className="text-left pb-3">Cliente</th><th className="text-left pb-3">Pedido</th><th className="text-left pb-3">Estado</th><th className="text-right pb-3">Total</th></tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {[["MR","Marcos Rivas","Fuerza & Volumen","Pagado","brand","$85.50"],["SO","Sonia Ocampo","Veggie Pro","Pendiente","neutral","$112.00"],["EG","Elena Gómez","Cutting","En cocina","blue","$72.00"],["CR","Carlos Ruiz","Keto","Camino","amber","$96.40"]].map(([i,n,p,s,t,m]) => (
-                  <tr key={n as string}>
-                    <td className="py-3"><div className="flex items-center gap-2.5"><div className="size-7 rounded-full bg-brand-100 grid place-items-center text-[10px] font-semibold text-brand-700">{i}</div><span className="font-medium">{n}</span></div></td>
-                    <td className="py-3 text-muted-foreground text-xs">{p}</td>
-                    <td className="py-3"><Badge tone={t as "brand"|"neutral"|"blue"|"amber"}>{s}</Badge></td>
-                    <td className="py-3 text-right tabular-nums font-medium">{m}</td>
-                  </tr>
-                ))}
+                {isLoading ? (
+                  <tr><td colSpan={4} className="py-3 text-xs text-muted-foreground">Cargando...</td></tr>
+                ) : data?.pedidosRecientes?.length === 0 ? (
+                  <tr><td colSpan={4} className="py-3 text-xs text-muted-foreground">No tienes pedidos recientes.</td></tr>
+                ) : (
+                  data?.pedidosRecientes?.map((p: any) => (
+                    <tr key={p.idPedido}>
+                      <td className="py-3"><div className="flex items-center gap-2.5"><div className="size-7 rounded-full bg-brand-100 grid place-items-center text-[10px] font-semibold text-brand-700">{p.cliente.substring(0, 2)}</div><span className="font-medium">{p.cliente}</span></div></td>
+                      <td className="py-3 text-muted-foreground text-xs">{p.idPedido}</td>
+                      <td className="py-3"><Badge tone={p.colorBadge as any}>{p.estado}</Badge></td>
+                      <td className="py-3 text-right tabular-nums font-medium">{p.monto}</td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </Card>
@@ -79,10 +98,10 @@ function TenantDashboard() {
           <Card className="p-6">
             <h3 className="text-sm font-semibold mb-4">Resumen financiero</h3>
             <div className="space-y-3 text-sm">
-              <Row label="Ingresos brutos" value="$12,480" />
-              <Row label="Comisiones" value="-$1,248" tone="text-muted-foreground" />
-              <Row label="Costos insumos" value="-$4,820" tone="text-muted-foreground" />
-              <div className="pt-3 border-t border-border flex justify-between"><span className="text-muted-foreground">Margen neto</span><span className="text-lg font-semibold text-brand-600">$6,412</span></div>
+              <Row label="Ingresos brutos" value={`$${data?.ventasSemanales?.toFixed(2) || '0.00'}`} />
+              <Row label="Comisiones" value="N/A" tone="text-muted-foreground" />
+              <Row label="Costos insumos" value="N/A" tone="text-muted-foreground" />
+              <div className="pt-3 border-t border-border flex justify-between"><span className="text-muted-foreground">Margen neto</span><span className="text-lg font-semibold text-brand-600">N/A</span></div>
             </div>
           </Card>
         </div>

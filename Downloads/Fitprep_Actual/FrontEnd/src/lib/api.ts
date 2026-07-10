@@ -272,3 +272,11 @@ export const pedidosService = {
     return response.data;
   },
 };
+
+// Servicios de Tenant Dashboard
+export const tenantService = {
+  obtenerDashboard: async () => {
+    const response = await api.get("/api/v1/pedidos/dashboard");
+    return response.data;
+  },
+};

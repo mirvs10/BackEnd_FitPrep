@@ -44,7 +44,9 @@ com\fitprep\demo\gestion_usuarios\infrastructure\adapter\out\persistence\Negocio
 com\fitprep\demo\logistica_cocina\application\service\LogisticaService.class
 com\fitprep\demo\catalogo_nutricional\domain\port\out\PlatoRepositoryPort.class
 com\fitprep\demo\gestion_usuarios\infrastructure\adapter\in\web\dto\NegocioResponse$NegocioResponseBuilder.class
+com\fitprep\demo\pedidos_ecommerce\infrastructure\adapter\in\web\dto\TenantDashboardResponse.class
 com\fitprep\demo\planificacion_semanal\infrastructure\adapter\in\web\dto\PlanSemanalRequest$PlanSemanalRequestBuilder.class
+com\fitprep\demo\pedidos_ecommerce\infrastructure\adapter\in\web\dto\TenantDashboardResponse$PedidoRecienteDto.class
 com\fitprep\demo\gestion_usuarios\infrastructure\adapter\in\web\dto\ActualizarObjetivosRequest.class
 com\fitprep\demo\catalogo_nutricional\infrastructure\adapter\in\web\PlatoController.class
 com\fitprep\demo\planificacion_semanal\domain\port\in\GestionarPlanSemanalUseCase$CrearPlanCommand.class
@@ -95,9 +97,11 @@ com\fitprep\demo\gestion_usuarios\domain\port\in\GestionarNegocioUseCase$Actuali
 com\fitprep\demo\pedidos_ecommerce\infrastructure\adapter\out\persistence\PedidoEcommerceEntity$PedidoEcommerceEntityBuilder.class
 com\fitprep\demo\planificacion_semanal\infrastructure\adapter\in\web\dto\ComidaProgramadaDTO$ComidaProgramadaDTOBuilder.class
 com\fitprep\demo\gestion_plataforma\infrastructure\adapter\in\web\dto\AdminDashboardResponse$AdminDashboardResponseBuilder.class
+com\fitprep\demo\pedidos_ecommerce\infrastructure\adapter\in\web\TenantDashboardController.class
 com\fitprep\demo\logistica_cocina\infrastructure\adapter\in\web\dto\ReporteProduccionResponse$ReporteProduccionResponseBuilder.class
 com\fitprep\demo\planificacion_semanal\infrastructure\adapter\in\web\dto\PlanSemanalRequest.class
 com\fitprep\demo\gestion_usuarios\domain\port\in\AutenticacionUseCase$RegistroUsuarioCommand.class
+com\fitprep\demo\pedidos_ecommerce\infrastructure\adapter\in\web\dto\TenantDashboardResponse$PlatoTopDto.class
 com\fitprep\demo\pedidos_ecommerce\infrastructure\adapter\out\persistence\PedidoEcommerceJpaRepository.class
 com\fitprep\demo\gestion_usuarios\infrastructure\adapter\out\persistence\UsuarioEntity.class
 com\fitprep\demo\logistica_cocina\infrastructure\adapter\in\web\LogisticaController.class
